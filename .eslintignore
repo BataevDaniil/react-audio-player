@@ -1,0 +1,5 @@
+**/tasks/**/*
+**/__test__/**/*.test.*
+**/build/**/*
+**/node_modules/**/*
+flow-typed/**/*
