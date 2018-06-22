@@ -1,16 +1,13 @@
 import React from 'react';
 
 import ControlPanel from '../ControlPanel';
+import PlayList from '../PlayList';
 
-class AudioPlayer extends React.Component {
-	render() {
-		return (
-			<div>
-				<ControlPanel />
-				<audio src='audio/Parallel_Park_-_01_-_Baboon_Boogie.mp3' controls />
-			</div>
-		);
-	}
-}
+const AudioPlayer = () => (
+	<div>
+		<ControlPanel />
+		<PlayList />
+	</div>
+);
 
 export default AudioPlayer;

@@ -3,19 +3,22 @@
 import {
 	PAUSE,
 	PLAY,
+	TIME,
 	TRACK,
 	SET,
+	GIVE,
 } from '../constantsActions';
 
 import player from '../player';
 
 const DEFAULT_CONTROL_PLAYER = {
 	isPlaying: false,
-	pathTrack: '/audio/Parallel_Park_-_01_-_Baboon_Boogie.mp3',
+	pathTrack: '',
+	currentTime: 0,
+	duration: 0,
+	currentNumberTrack: -1,
+	name: '',
 };
-
-// only dev
-player.src = '/audio/Parallel_Park_-_01_-_Baboon_Boogie.mp3';
 
 export default (controlPlayer = DEFAULT_CONTROL_PLAYER, action) => {
 	const { type, payload } = action;
@@ -30,10 +33,22 @@ export default (controlPlayer = DEFAULT_CONTROL_PLAYER, action) => {
 			return { ...controlPlayer, isPlaying: true };
 		}
 		case SET + TRACK: {
-			player.src = payload.src;
-			return { ...controlPlayer, pathTrack: payload.src };
+			const { src, name, currentNumberTrack } = payload;
+			player.src = src;
+			return {
+				...controlPlayer, pathTrack: src, name, currentNumberTrack,
+			};
+		}
+		case SET + TIME + TRACK: {
+			player.currentTime = payload.time;
+			return { ...controlPlayer, timeTrack: payload.time };
+		}
+
+		case GIVE + TIME + TRACK: {
+			const { currentTime, duration } = payload;
+			return { ...controlPlayer, currentTime, duration };
 		}
 		default:
-			return player;
+			return controlPlayer;
 	}
 };

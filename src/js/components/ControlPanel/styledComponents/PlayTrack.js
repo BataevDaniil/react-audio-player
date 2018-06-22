@@ -11,7 +11,7 @@ const PlayTrack = styled.div`
 	border-top: ${sideTransparentTriangle}px solid transparent;
 	border-left: ${sideMainTriangle}px solid ${props => props.color};
 	border-bottom: ${sideTransparentTriangle}px solid transparent;
-	margin: 0 20px;
+	margin: 0 10px;
 `;
 
 export default PlayTrack;
