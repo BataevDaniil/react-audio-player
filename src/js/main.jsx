@@ -6,14 +6,17 @@ import { Provider } from 'react-redux';
 
 import AudioPlayer from './components/AudioPlayer';
 
-// import store from './store';
+import store from './store';
 
 const domElem = document.querySelector('#audio-player');
-console.log(AudioPlayer)
+
 if (domElem)
-	render(<AudioPlayer/>, domElem);
+	render(
+		(
+			<Provider store={store}>
+				<AudioPlayer />
+			</Provider>
+		), domElem,
+	);
 else
-	console.log('html element not exists')
-		// <Provider store={store}>
-		// 	<AudioPlayer/>
-		// </Provider>), domElem);
+	console.log('html element not exists');
