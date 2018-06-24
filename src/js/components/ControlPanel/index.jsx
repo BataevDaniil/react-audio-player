@@ -8,82 +8,97 @@ import PlayTrack from './styledComponents/PlayTrack';
 import StopTrack from './styledComponents/StopTrack';
 import TimeTrack from './styledComponents/TimeTrack';
 import NameTrack from './styledComponents/NameTrack';
+import RepeatTrack from './styledComponents/RepeatTrack';
 
 import {
 	pausePlayer,
 	playPlayer,
-	setTrack,
+	prevPlayer,
+	nextPlayer,
+	repeatPlayer,
 } from '../../AC';
 
 import { convertSecToNormalTime } from '../../helper';
 
 class ControlPanel extends React.Component {
+	colorButton = '#DB817F';
+	colorButtonHover = '#ff5f5c';
+
 	state = {
 		timeInvers: false,
 	}
 	render() {
-		console.log(this.props);
 		const {
 			isPlaying,
 			currentTime,
-			duration,
+			track,
+			isRepeating,
 			pausePlayer,
 			playPlayer,
-			name,
-			currentNumberTrack,
-			playList,
+			prevPlayer,
+			nextPlayer,
+			repeatPlayer,
 		} = this.props;
 		const { timeInvers } = this.state;
 		return (
 			<ControlPanelWrapper>
 				<PrevTrack
-					color='red'
+					color={this.colorButton}
+					colorHover={this.colorButtonHover}
 					heightTriangle={20}
-					onClick={this.handlerTrackClick(currentNumberTrack - 1)}
+					onClick={prevPlayer}
 				/>
-				{!isPlaying && <PlayTrack color='red' heightTriangle={20} onClick={playPlayer} />}
-				{isPlaying && <StopTrack color='red' size={20} onClick={pausePlayer} />}
-				<NextTrack
-					color='red'
+				{!isPlaying && <PlayTrack
+					color={this.colorButton}
+					colorHover={this.colorButtonHover}
 					heightTriangle={20}
-					onClick={this.handlerTrackClick(currentNumberTrack + 1)}
+					onClick={playPlayer}
+				/>}
+				{isPlaying && <StopTrack
+					color={this.colorButton}
+					colorHover={this.colorButtonHover}
+					size={20}
+					onClick={pausePlayer}
+				/>}
+				<NextTrack
+					color={this.colorButton}
+					colorHover={this.colorButtonHover}
+					heightTriangle={20}
+					onClick={nextPlayer}
+				/>
+				<RepeatTrack
+					color='#CADCED'
+					colorHover='#add8ff'
+					active={isRepeating}
+					colorActive={this.colorButton}
+					colorActiveHover={this.colorButtonHover}
+					size={20}
+					onClick={repeatPlayer}
 				/>
 				<TimeTrack
-					children={convertSecToNormalTime(currentTime, duration || 0, timeInvers)}
+					children={convertSecToNormalTime(currentTime, track && track.duration || 0, timeInvers)}
 					onClick={() => this.setState({ timeInvers: !timeInvers })}
 				/>
-				{currentNumberTrack !== -1 && <NameTrack children={`${currentNumberTrack}. ${name}`} />}
+				{<NameTrack children={track && `${track.artistName} - ${track.trackName}` || ''} />}
 
 			</ControlPanelWrapper>
 		);
-	}
-	handlerTrackClick = index => () => {
-		const {
-			playPlayer,
-			playList,
-			setTrack,
-		} = this.props;
-
-		const tmp = (index - 1 >= playList.length) ? 0 : (index - 1 < 0) ? playList.length - 1 : index - 1;
-		setTrack(playList[tmp].name, playList[tmp].name, tmp + 1);
-		playPlayer();
 	}
 }
 
 export default connect(({
 	controlPlayer: {
-		isPlaying, currentTime, duration, name, currentNumberTrack,
+		isPlaying, currentTime, playList, currentTrack, repeat
 	},
-	playList,
 }) => ({
 	isPlaying,
 	currentTime,
-	duration,
-	name,
-	currentNumberTrack,
-	playList,
+	track: playList.find(item => item.id === currentTrack),
+	isRepeating: repeat,
 }), {
 	pausePlayer,
 	playPlayer,
-	setTrack,
+	prevPlayer,
+	nextPlayer,
+	repeatPlayer,
 })(ControlPanel);

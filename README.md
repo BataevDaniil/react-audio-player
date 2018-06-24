@@ -1,4 +1,5 @@
 # Description
+
 Make an audioplayer using React/Redux.
 - audioplayer should have the following functionality: play/pause, play
 next/previous, seek the track (choose specific timestamp of the song), adjust

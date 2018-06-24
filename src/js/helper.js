@@ -1,26 +1,20 @@
 // @flow
 
+export const convertSecToMinAndSec = (sec: number) => {
+	let tmp = Math.floor(sec) % 60;
+	tmp = (Math.floor(tmp / 10) === 0) ? `0${tmp}` : `${tmp}`;
+	return `${Math.floor(sec / 60)}:${tmp}`;
+};
+
 export const convertSecToNormalTime = (
 	currentTime: number,
 	duration: number,
 	invers: boolean,
-) => {
-	if (invers) {
-		let tmp1 = Math.floor(duration - currentTime) % 60;
-		tmp1 = (Math.floor(tmp1 / 10) === 0) ? `:0${tmp1}` : `:${tmp1}`;
+) => (
+	`${convertSecToMinAndSec(invers ? duration - currentTime : currentTime)} / ${convertSecToMinAndSec(duration)}`
+);
 
-		let tmp2 = Math.floor(duration) % 60;
-		tmp2 = (Math.floor(tmp2 / 10) === 0) ? `:0${tmp2}` : `:${tmp2}`;
-
-		return `${Math.floor((duration - currentTime) / 60) + tmp1} / ${
-			 Math.floor(duration / 60)}${tmp2}`;
-	}
-	let tmp1: any = Math.floor(currentTime) % 60;
-	tmp1 = (Math.floor(tmp1 / 10) === 0) ? `:0${tmp1}` : `:${tmp1}`;
-
-	let tmp2: any = Math.floor(duration) % 60;
-	tmp2 = (Math.floor(tmp2 / 10) === 0) ? `:0${tmp2}` : `:${tmp2}`;
-
-	return `${Math.floor(currentTime / 60) + tmp1} / ${
-			 Math.floor(duration / 60)}${tmp2}`;
+export const filterSearcher = (arr, search) => {
+	if (search.length < 3) return arr;
+	return arr.filter(({ trackName }) => trackName.indexOf(search) !== -1);
 };

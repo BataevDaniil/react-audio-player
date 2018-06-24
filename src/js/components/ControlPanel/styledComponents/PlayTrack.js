@@ -12,6 +12,13 @@ const PlayTrack = styled.div`
 	border-left: ${sideMainTriangle}px solid ${props => props.color};
 	border-bottom: ${sideTransparentTriangle}px solid transparent;
 	margin: 0 10px;
+	&:hover {
+		cursor: pointer;
+		border-left-color: ${props => props.colorHover};
+		&::before {
+			background: ${props => props.colorHover};
+		}
+	}
 `;
 
 export default PlayTrack;

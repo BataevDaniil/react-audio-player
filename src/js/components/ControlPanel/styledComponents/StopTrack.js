@@ -9,6 +9,11 @@ const StopTrack = styled.div`
 	border-left: ${props => props.size * k / 3}px solid ${props => props.color};
 	border-right: ${props => props.size * k / 3}px solid ${props => props.color};
 	margin: 0 10px;
+	&:hover {
+		cursor: pointer;
+		border-left-color: ${props => props.colorHover};
+		border-right-color: ${props => props.colorHover};
+	}
 `;
 
 export default StopTrack;

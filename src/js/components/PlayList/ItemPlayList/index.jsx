@@ -1,13 +1,22 @@
 import React from 'react';
 
+import { convertSecToMinAndSec } from '../../../helper';
+
 import ItemPlayListWrapper from './styledComponents/ItemPlayLIstWrapper';
+import DurationTimeTrack from './styledComponents/DurationTimeTrack';
 
 const ItemPlayList = ({
-	number, name, fullTime, onClick,
+	active, trackName, artistName, duration, onClick,
 }) => (
-	<ItemPlayListWrapper onClick={onClick}>
-		<span>{number}. {name}</span>
-		<span>{fullTime}</span>
+	<ItemPlayListWrapper
+		onClick={onClick}
+		active={active}
+		colorActive='#DB817F'
+		colorActiveHover='#ff5f5c'
+		colorHover='#CADCED'
+	>
+		<span>{artistName} - {trackName}</span>
+		<DurationTimeTrack children={convertSecToMinAndSec(duration)} />
 	</ItemPlayListWrapper>
 );
 

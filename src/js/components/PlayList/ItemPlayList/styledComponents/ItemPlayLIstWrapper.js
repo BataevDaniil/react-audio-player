@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-const ItemPlayWrapper = styled.div`
+const ItemPlayWrapper = styled.li`
 	width: 100%;
 	padding: 10px 10px;
-	display: flex;
-	justify-content: space-between;
+	background: ${({ active, colorActive }) => (active ? colorActive : '')};
 	&:hover {
-		background: #CADCED;
+		cursor: pointer;
+		background: ${({ active, colorActiveHover, colorHover }) => (active ? colorActiveHover: colorHover)};
 	}
 `;
 

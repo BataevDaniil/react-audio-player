@@ -13,7 +13,8 @@ const browserSyncConfig = {
 		baseDir: config.browserSync.baseDir,
 		// directory: true
 		routes: {
-			"/audio": "audio"
+			"/audio": "mock/audio",
+			"/playList.json": "mock/playList.json",
 		}
 	}
 };

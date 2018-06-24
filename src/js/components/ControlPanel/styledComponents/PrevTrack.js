@@ -21,7 +21,14 @@ const PrevTrack = styled.div`
 		position: absolute;
 		left: -${widthLineTriangle}px;
 		top: -${sideTransparentTriangle}px;
-		background: ${props => props.color}
+		background: ${props => props.color};
+	}
+	&:hover {
+		cursor: pointer;
+		border-right-color: ${props => props.colorHover};
+		&::before {
+			background: ${props => props.colorHover};
+		}
 	}
 `;
 

@@ -23,6 +23,13 @@ const NextTrack = styled.div`
 		top: -${sideTransparentTriangle}px;
 		background: ${props => props.color};
 	}
+	&:hover {
+		cursor: pointer;
+		border-left-color: ${props => props.colorHover};
+		&::before {
+			background: ${props => props.colorHover};
+		}
+	}
 `;
 
 export default NextTrack;
