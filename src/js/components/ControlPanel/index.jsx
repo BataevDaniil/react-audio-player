@@ -10,12 +10,16 @@ import TimeTrack from './styledComponents/TimeTrack';
 import NameTrack from './styledComponents/NameTrack';
 import RepeatTrack from './styledComponents/RepeatTrack';
 
+import Road from './Road';
+
 import {
 	pausePlayer,
 	playPlayer,
 	prevPlayer,
 	nextPlayer,
 	repeatPlayer,
+	setTimeTrack,
+	setVolume,
 } from '../../AC';
 
 import { convertSecToNormalTime } from '../../helper';
@@ -33,11 +37,14 @@ class ControlPanel extends React.Component {
 			currentTime,
 			track,
 			isRepeating,
+			volume,
 			pausePlayer,
 			playPlayer,
 			prevPlayer,
 			nextPlayer,
 			repeatPlayer,
+			setTimeTrack,
+			setVolume,
 		} = this.props;
 		const { timeInvers } = this.state;
 		return (
@@ -80,6 +87,22 @@ class ControlPanel extends React.Component {
 					onClick={() => this.setState({ timeInvers: !timeInvers })}
 				/>
 				{<NameTrack children={track && `${track.artistName} - ${track.trackName}` || ''} />}
+				<Road
+					min={0}
+					max={track && track.duration || 0}
+					classNameRoad='road-playing'
+					classNameLine='road-playing--line'
+					value={currentTime}
+					onChange={setTimeTrack}
+				/>
+				<Road
+					min={0}
+					max={1}
+					classNameRoad='road-volume'
+					classNameLine='road-volume--line'
+					value={volume}
+					onChange={setVolume}
+				/>
 
 			</ControlPanelWrapper>
 		);
@@ -88,17 +111,20 @@ class ControlPanel extends React.Component {
 
 export default connect(({
 	controlPlayer: {
-		isPlaying, currentTime, playList, currentTrack, repeat
+		isPlaying, currentTime, playList, currentTrack, repeat, volume,
 	},
 }) => ({
 	isPlaying,
 	currentTime,
 	track: playList.find(item => item.id === currentTrack),
 	isRepeating: repeat,
+	volume,
 }), {
 	pausePlayer,
 	playPlayer,
 	prevPlayer,
 	nextPlayer,
 	repeatPlayer,
+	setTimeTrack,
+	setVolume,
 })(ControlPanel);

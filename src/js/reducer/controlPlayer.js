@@ -7,6 +7,7 @@ import {
 	PREV,
 	REPEAT,
 	TIME,
+	VOLUME,
 	TRACK,
 	SET,
 	GIVE,
@@ -102,6 +103,10 @@ export default (controlPlayer = DEFAULT_CONTROL_PLAYER, action) => {
 		case SET + TIME + TRACK: {
 			player.currentTime = payload.time;
 			return { ...controlPlayer, timeTrack: payload.time };
+		}
+		case SET + VOLUME + TRACK: {
+			player.volume = payload.volume;
+			return { ...controlPlayer, volume: payload.volume};
 		}
 		case GIVE + TIME + TRACK: {
 			const { currentTime, duration } = payload;

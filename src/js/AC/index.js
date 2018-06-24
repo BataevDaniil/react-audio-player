@@ -8,6 +8,7 @@ import {
 	TRACK,
 	REPEAT,
 	TIME,
+	VOLUME,
 	SET,
 	GIVE,
 	START,
@@ -58,6 +59,13 @@ export function setTimeTrack(time: number) {
 	return {
 		type: SET + TIME + TRACK,
 		payload: { time },
+	};
+}
+
+export function setVolume(volume: number) {
+	return {
+		type: SET + VOLUME + TRACK,
+		payload: { volume },
 	};
 }
 
