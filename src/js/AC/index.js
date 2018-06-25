@@ -17,6 +17,7 @@ import {
 	LOAD_PLAY_LIST,
 	SEARCH_PLAY_LIST,
 } from '../constantsActions';
+import { Dispatch } from '../../../../../../../../home/daniil/.cache/typescript/2.9/node_modules/redux';
 
 export function pausePlayer() {
 	return {

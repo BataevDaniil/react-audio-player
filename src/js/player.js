@@ -1,3 +1,5 @@
+// @flow
+
 import store from './store';
 
 import { giveTimeTrack, nextPlayer } from './AC';

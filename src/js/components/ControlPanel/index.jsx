@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -24,13 +26,16 @@ import {
 
 import { convertSecToNormalTime } from '../../helper';
 
-class ControlPanel extends React.Component {
+import { type ControlPanelProps, type ControlPanelState } from '../../flow-typed';
+
+class ControlPanel extends React.Component<ControlPanelProps, ControlPanelState> {
 	colorButton = '#DB817F';
 	colorButtonHover = '#ff5f5c';
 
 	state = {
 		timeInvers: false,
 	}
+
 	render() {
 		const {
 			isPlaying,

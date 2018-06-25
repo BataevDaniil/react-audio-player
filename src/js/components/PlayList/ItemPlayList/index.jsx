@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 
 import { convertSecToMinAndSec } from '../../../helper';
@@ -5,9 +7,11 @@ import { convertSecToMinAndSec } from '../../../helper';
 import ItemPlayListWrapper from './styledComponents/ItemPlayLIstWrapper';
 import DurationTimeTrack from './styledComponents/DurationTimeTrack';
 
+import { type ItemPlayListProps } from '../../../flow-typed';
+
 const ItemPlayList = ({
 	active, trackName, artistName, duration, onClick,
-}) => (
+}: ItemPlayListProps) => (
 	<ItemPlayListWrapper
 		onClick={onClick}
 		active={active}

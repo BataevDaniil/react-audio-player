@@ -19,8 +19,9 @@ import {
 	setSearchPlayList,
 } from '../../AC';
 
+import { PlayListProps } from '../../flow-typed';
 
-class PlayList extends React.Component {
+class PlayList extends React.Component<PlayListProps> {
 	render() {
 		const {
 			playList,

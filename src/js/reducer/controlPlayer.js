@@ -22,7 +22,9 @@ import player from '../player';
 
 import { filterSearcher } from '../helper';
 
-const DEFAULT_CONTROL_PLAYER = {
+import { type ControlPanelReducer } from '../flow-typed';
+
+const DEFAULT_CONTROL_PLAYER: ControlPanelReducer = {
 	isPlaying: false,
 	currentTime: 0,
 	volume: 1,
@@ -36,12 +38,13 @@ const DEFAULT_CONTROL_PLAYER = {
 	searchPlayList: '',
 };
 
-export default (controlPlayer = DEFAULT_CONTROL_PLAYER, action) => {
+export default (controlPlayer: ControlPanelReducer = DEFAULT_CONTROL_PLAYER, action) => {
 	const { type, payload } = action;
 
 	const setTrack = (id, playList) => {
 		// TODO: what do with a format?
-		const format = playList.find(track => track.id === id).format[0];
+		let format = playList.find(track => track.id === id);
+		format = format && format.format[0] || 'mp3';
 		player.src = `/audio/${id}.${format}`;
 		return { currentTrack: id };
 	};
@@ -58,56 +61,74 @@ export default (controlPlayer = DEFAULT_CONTROL_PLAYER, action) => {
 			player.pause();
 			return { ...controlPlayer, isPlaying: false };
 		}
+
 		case PLAY + TRACK: {
 			if (controlPlayer.currentTrack === '')
 				return controlPlayer;
 			player.play();
 			return { ...controlPlayer, isPlaying: true };
 		}
+
 		case NEXT + TRACK: {
 			const { playList, currentTrack, searchPlayList } = controlPlayer;
 			if (!currentTrack) return controlPlayer;
 			let index;
 			const filterPlayList = filterSearcher(playList, searchPlayList);
 			if (filterPlayList.length === 0) return { ...controlPlayer };
-			const track = filterPlayList.find((track, i) => ((track.id === currentTrack) ? ((index = i), true) : false));
+			const track = filterPlayList.find((track, i) =>
+				((track.id === currentTrack) ? ((index = i), true) : false));
 			if (!track)
 				index = 0;
 			else
 				index = (index + 1) % filterPlayList.length;
-			return { ...controlPlayer, ...setTrack(filterPlayList[index].id, filterPlayList), ...playTrack() };
+			return {
+				...controlPlayer,
+				...setTrack(filterPlayList[index].id, filterPlayList),
+				...playTrack(),
+			};
 		}
+
 		case PREV + TRACK: {
 			const { playList, currentTrack, searchPlayList } = controlPlayer;
 			if (!currentTrack) return controlPlayer;
-			let index;
+			let index: number;
 			const filterPlayList = filterSearcher(playList, searchPlayList);
 			if (filterPlayList.length === 0) return { ...controlPlayer };
-			const track = filterPlayList.find((track, i) => ((track.id === currentTrack) ? ((index = i), true) : false));
+			const track = filterPlayList.find((track, i) =>
+				((track.id === currentTrack) ? ((index = i), true) : false));
 			if (!track)
 				index = 0;
 			else
 				index = (index - 1 < 0) ? filterPlayList.length - 1 : index - 1;
-			return { ...controlPlayer, ...setTrack(filterPlayList[index].id, filterPlayList), ...playTrack() };
+			return {
+				...controlPlayer,
+				...setTrack(filterPlayList[index].id, filterPlayList),
+				...playTrack(),
+			};
 		}
+
 		case REPEAT + TRACK: {
 			const { repeat } = controlPlayer;
 			player.loop = !repeat;
 			return { ...controlPlayer, repeat: !repeat };
 		}
+
 		case SET + TRACK: {
 			const { playList } = controlPlayer;
 			const { id } = payload;
 			return { ...controlPlayer, ...setTrack(id, playList) };
 		}
+
 		case SET + TIME + TRACK: {
 			player.currentTime = payload.time;
 			return { ...controlPlayer, timeTrack: payload.time };
 		}
+
 		case SET + VOLUME + TRACK: {
 			player.volume = payload.volume;
-			return { ...controlPlayer, volume: payload.volume};
+			return { ...controlPlayer, volume: payload.volume };
 		}
+
 		case GIVE + TIME + TRACK: {
 			const { currentTime, duration } = payload;
 			return { ...controlPlayer, currentTime, duration };
@@ -116,6 +137,7 @@ export default (controlPlayer = DEFAULT_CONTROL_PLAYER, action) => {
 		case SET + SEARCH_PLAY_LIST: {
 			return { ...controlPlayer, searchPlayList: payload.searchPlayList };
 		}
+
 		case LOAD_PLAY_LIST + SUCCES: {
 			const { playList } = payload;
 			return {
@@ -141,6 +163,7 @@ export default (controlPlayer = DEFAULT_CONTROL_PLAYER, action) => {
 			};
 		}
 		default:
+			(action: empty);
 			return controlPlayer;
 	}
 };

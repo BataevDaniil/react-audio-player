@@ -1,7 +1,17 @@
+// @flow
+
 import { createSelector } from 'reselect';
 import { filterSearcher } from '../helper';
 
-const filterSearcherGetter = state => state.controlPlayer.searchPlayList;
-const playListGetter = state => state.controlPlayer.playList;
+import { type ControlPanelReducer } from '../flow-typed';
 
-export const filtratedPlayListSelector = createSelector(playListGetter, filterSearcherGetter, filterSearcher);
+const filterSearcherGetter = (state: {controlPlayer: ControlPanelReducer}) =>
+	state.controlPlayer.searchPlayList;
+const playListGetter = (state: {controlPlayer: ControlPanelReducer}) =>
+	state.controlPlayer.playList;
+
+export const filtratedPlayListSelector = createSelector(
+	playListGetter,
+	filterSearcherGetter,
+	filterSearcher,
+);

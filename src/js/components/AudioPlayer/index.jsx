@@ -6,7 +6,9 @@ import PlayList from '../PlayList';
 
 import { loadPlayList } from '../../AC';
 
-class AudioPlayer extends React.Component {
+import { type AudioPlayerProps } from '../../flow-typed';
+
+class AudioPlayer extends React.Component<AudioPlayerProps> {
 	componentDidMount() {
 		this.props.loadPlayList('/playList.json');
 	}
