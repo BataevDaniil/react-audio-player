@@ -63,8 +63,7 @@ export default (controlPlayer: ControlPanelReducer = DEFAULT_CONTROL_PLAYER, act
 		}
 
 		case PLAY + TRACK: {
-			if (controlPlayer.currentTrack === '')
-				return controlPlayer;
+			if (!controlPlayer.currentTrack) return controlPlayer;
 			player.play();
 			return { ...controlPlayer, isPlaying: true };
 		}
@@ -91,7 +90,7 @@ export default (controlPlayer: ControlPanelReducer = DEFAULT_CONTROL_PLAYER, act
 		case PREV + TRACK: {
 			const { playList, currentTrack, searchPlayList } = controlPlayer;
 			if (!currentTrack) return controlPlayer;
-			let index: number;
+			let index;
 			const filterPlayList = filterSearcher(playList, searchPlayList);
 			if (filterPlayList.length === 0) return { ...controlPlayer };
 			const track = filterPlayList.find((track, i) =>
@@ -125,8 +124,9 @@ export default (controlPlayer: ControlPanelReducer = DEFAULT_CONTROL_PLAYER, act
 		}
 
 		case SET + VOLUME + TRACK: {
-			player.volume = payload.volume;
-			return { ...controlPlayer, volume: payload.volume };
+			const { volume } = payload;
+			player.volume = volume;
+			return { ...controlPlayer, volume };
 		}
 
 		case GIVE + TIME + TRACK: {

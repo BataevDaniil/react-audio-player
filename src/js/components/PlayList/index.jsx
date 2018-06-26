@@ -21,7 +21,7 @@ import {
 
 import { PlayListProps } from '../../flow-typed';
 
-class PlayList extends React.Component<PlayListProps> {
+export class PlayList extends React.Component<PlayListProps> {
 	render() {
 		const {
 			playList,
@@ -41,8 +41,8 @@ class PlayList extends React.Component<PlayListProps> {
 					{loading && <Loading children='Loading...' />}
 					{loadFail && <LoadFail children='Sorry. Playlist is fail load.' />}
 					{
-						loaded && (playList.length === 0 ?
-							<EmptyPlayList children='Not tracks.' />
+						loaded && (playList.length === 0
+							? <EmptyPlayList children='Not tracks.' />
 							: playList
 								.map(track => (
 									<ItemPlayList
@@ -85,7 +85,6 @@ export default connect(state => {
 		loading,
 		loaded,
 		loadFail,
-
 	} = state.controlPlayer;
 	return {
 		playList: filtratedPlayListSelector(state),

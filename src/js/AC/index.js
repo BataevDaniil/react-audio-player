@@ -17,7 +17,6 @@ import {
 	LOAD_PLAY_LIST,
 	SEARCH_PLAY_LIST,
 } from '../constantsActions';
-import { Dispatch } from '../../../../../../../../home/daniil/.cache/typescript/2.9/node_modules/redux';
 
 export function pausePlayer() {
 	return {
@@ -85,12 +84,12 @@ export function setSearchPlayList(searchPlayList: string) {
 }
 
 export function loadPlayList(url: string) {
-	return (dispatch) => {
+	return dispatch => {
 		dispatch({
 			type: LOAD_PLAY_LIST + START,
 		});
 
-		fetch(url, {
+		return fetch(url, {
 			method: 'GET',
 			headers: { 'Content-Type': 'JSON' },
 		})

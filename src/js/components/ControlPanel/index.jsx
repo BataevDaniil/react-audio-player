@@ -28,7 +28,7 @@ import { convertSecToNormalTime } from '../../helper';
 
 import { type ControlPanelProps, type ControlPanelState } from '../../flow-typed';
 
-class ControlPanel extends React.Component<ControlPanelProps, ControlPanelState> {
+export class ControlPanel extends React.Component<ControlPanelProps, ControlPanelState> {
 	colorButton = '#DB817F';
 	colorButtonHover = '#ff5f5c';
 
