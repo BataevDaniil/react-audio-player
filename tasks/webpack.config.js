@@ -6,7 +6,7 @@ let config = {
 	output: {
 		publicPath: '/js/'
 	},
-	watch: true,
+	watch: (mode === 'development'),
 	// devtool: 'source-map',
 	devtool: 'eval',
 	watchOptions: {

@@ -26,3 +26,9 @@ gulp.task('default',
 	              'browser-sync',
 	              'watch')));
 
+gulp.task('mock', () => {
+	return gulp.src('mock/**/*')
+		.pipe(gulp.dest('build/'))
+});
+
+gulp.task('gh-pages', gulp.series('build', 'mock'));

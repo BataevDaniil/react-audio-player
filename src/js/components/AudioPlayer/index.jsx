@@ -10,7 +10,7 @@ import { type AudioPlayerProps } from '../../flow-typed';
 
 class AudioPlayer extends React.Component<AudioPlayerProps> {
 	componentDidMount() {
-		this.props.loadPlayList('/playList.json');
+		this.props.loadPlayList('playList.json');
 	}
 
 	render() {

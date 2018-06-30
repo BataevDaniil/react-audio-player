@@ -1,11 +1,12 @@
 {
-  "name": "reactAudioPlayer",
+  "name": "react-audio-player",
   "version": "1.0.0",
   "author": "Daniil <ragoga48@gmail.com>",
   "license": "MIT",
   "scripts": {
     "production": "cross-env NODE_ENV=production gulp default",
     "development": "cross-env NODE_ENV=development gulp default",
+    "gh-pages": "cross-env NODE_ENV=production gulp gh-pages",
     "share": "gulp ngrok",
     "test": "jest",
     "test:watch": "jest --watch",

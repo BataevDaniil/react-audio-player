@@ -45,7 +45,7 @@ export default (controlPlayer: ControlPanelReducer = DEFAULT_CONTROL_PLAYER, act
 		// TODO: what do with a format?
 		let format = playList.find(track => track.id === id);
 		format = format && format.format[0] || 'mp3';
-		player.src = `/audio/${id}.${format}`;
+		player.src = `audio/${id}.${format}`;
 		return { currentTrack: id };
 	};
 
