@@ -31,4 +31,4 @@ gulp.task('mock', () => {
 		.pipe(gulp.dest('build/'))
 });
 
-gulp.task('gh-pages', gulp.series('build', 'mock'));
+gulp.task('gh-pages', gulp.series('build', 'img', 'mock'));
